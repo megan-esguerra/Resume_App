@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart'; // Needed for IconButton & Icons
 
 void main() {
   runApp(CupertinoApp(
@@ -17,6 +16,9 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   final List<Map<String, String>> users = [
+    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
+    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
+    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
     {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
     {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
     {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
@@ -99,11 +101,12 @@ class MyAppState extends State<MyApp> {
           onPressed: () => _showUsersModal(context),
         ),
       ),
-      child: Padding(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: users.map((user) => _buildUserItem(user)).toList(),
+      child: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(20.0),
+          child: ListView(
+            children: users.map((user) => _buildUserItem(user)).toList(),
+          ),
         ),
       ),
     );
