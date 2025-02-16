@@ -27,23 +27,25 @@ class MyAppState extends State<MyApp> {
   ];
 
   void _showUsersModal(BuildContext context) {
-    showCupertinoModalPopup(
+    showCupertinoDialog(
       context: context,
-      builder: (context) => CupertinoActionSheet(
-        title: Text("Teams", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-        message: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: users.map((user) => _buildUserAvatar(user)).toList(),
+      builder: (context) => Center( // Wrap with Center widget
+        child: CupertinoActionSheet(
+          title: Text("Teams", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          message: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: users.map((user) => _buildUserAvatar(user)).toList(),
+            ),
           ),
+          actions: [
+            CupertinoActionSheetAction(
+              onPressed: () => Navigator.pop(context),
+              child: Text("Close", style: TextStyle(color: CupertinoColors.destructiveRed)),
+            ),
+          ],
         ),
-        actions: [
-          CupertinoActionSheetAction(
-            onPressed: () => Navigator.pop(context),
-            child: Text("Close", style: TextStyle(color: CupertinoColors.destructiveRed)),
-          ),
-        ],
       ),
     );
   }
