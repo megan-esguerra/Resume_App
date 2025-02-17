@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(CupertinoApp(
@@ -55,14 +56,9 @@ class MyAppState extends State<MyApp> {
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: Image.asset(
-              user['avatar']!,
-              width: 80,
-              height: 80,
-              fit: BoxFit.cover,
-            ),
+          CircleAvatar(
+            backgroundImage: AssetImage(user['avatar']!),
+            radius: 40,
           ),
           SizedBox(width: 15),
           Text(
@@ -77,14 +73,9 @@ class MyAppState extends State<MyApp> {
   Widget _buildUserAvatar(Map<String, String> user) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(25),
-        child: Image.asset(
-          user['avatar']!,
-          width: 50,
-          height: 50,
-          fit: BoxFit.cover,
-        ),
+      child: CircleAvatar(
+        backgroundImage: AssetImage(user['avatar']!),
+        radius: 25,
       ),
     );
   }
@@ -93,12 +84,19 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text('User List'),
+        leading: Padding(
+          padding: EdgeInsets.only(left: 10),
+          child: CircleAvatar(
+            backgroundImage: AssetImage('assets/images/LuisAvatar.jpg'),
+            radius: 15,
+          )
+        ),
+        middle: Text('Chats'),
         trailing: CupertinoButton(
           padding: EdgeInsets.zero,
           child: Icon(
-            CupertinoIcons.person_2,
-            color: CupertinoColors.activeBlue,
+            CupertinoIcons.pencil,
+            color: CupertinoColors.white,
           ),
           onPressed: () => _showUsersModal(context),
         ),
@@ -106,8 +104,10 @@ class MyAppState extends State<MyApp> {
       child: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(20.0),
-          child: ListView(
-            children: users.map((user) => _buildUserItem(user)).toList(),
+          child: SingleChildScrollView(
+            child: Column(
+              children: users.map((user) => _buildUserItem(user)).toList(),
+            ),
           ),
         ),
       ),
