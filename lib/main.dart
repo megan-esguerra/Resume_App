@@ -4,7 +4,7 @@ void main() {
   runApp(CupertinoApp(
     debugShowCheckedModeBanner: false,
     home: MyApp(),
-  ));
+  ));//aaa
 }
 
 class MyApp extends StatefulWidget {
@@ -136,10 +136,64 @@ class MyAppState extends State<MyApp> {
         ),
       ),
       child: SafeArea(
+<<<<<<< HEAD
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                // Search Bar
+                CupertinoSearchTextField(
+                  placeholder: 'Search',
+                ),
+                SizedBox(height: 15),
+
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[800],
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            child: Icon(CupertinoIcons.add, color: Colors.white, size: 30),
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Text("Your Story", style: TextStyle(fontSize: 14, color: CupertinoColors.systemGrey)),
+                      ],
+                    ),
+                    SizedBox(width: 20),
+                    Column(
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: AssetImage('assets/images/LuisAvatar.jpg'),
+                          radius: 30,
+                        ),
+                        SizedBox(height: 5),
+                        Text("Luis", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 15),
+
+                // User List
+                Column(
+                  children: users.map((user) => _buildUserItem(user)).toList(),
+                ),
+              ],
+            ),
+=======
         child: Padding(
           padding: EdgeInsets.all(20.0),
           child: ListView(
             children: users.map((user) => _buildUserItem(user)).toList(),
+>>>>>>> master
           ),
         ),
       ),
