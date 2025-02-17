@@ -16,22 +16,14 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   final List<Map<String, String>> users = [
-    {
-      'name': 'Luis Gabrielle Estacio',
-      'avatar': 'assets/images/LuisAvatar.jpg',
-      'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga',
-      'email': 'adrianmhakimacabali@gmail.com',
-      'gradeSection': 'BSIT-3A',
-      'contactNumber': '09696412682'
-    },
-    {
-      'name': 'Adrian Mhaki Macabali',
-      'avatar': 'assets/images/AdrianAvatar.jpg',
-      'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga',
-      'email': 'adrianmhakimacabali@gmail.com',
-      'gradeSection': 'BSIT-3A',
-      'contactNumber': '09696412682'
-    },
+    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg', 'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga', 'email': 'adrianmhakimacabali@gmail.com', 'gr&sec': 'BSIT-3A', 'contact#': '09696412682' },
+    {'name': 'Adrian Mhaki Macabali', 'avatar': 'assets/images/AdrianAvatar.jpg', 'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga', 'email': 'adrianmhakimacabali@gmail.com', 'gr&sec': 'BSIT-3A', 'contact#': '09696412682' },
+    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg', 'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga', 'email': 'adrianmhakimacabali@gmail.com', 'gr&sec': 'BSIT-3A', 'contact#': '09696412682' },
+    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg', 'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga', 'email': 'adrianmhakimacabali@gmail.com', 'gr&sec': 'BSIT-3A', 'contact#': '09696412682' },
+    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg', 'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga', 'email': 'adrianmhakimacabali@gmail.com', 'gr&sec': 'BSIT-3A', 'contact#': '09696412682' },
+    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg', 'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga', 'email': 'adrianmhakimacabali@gmail.com', 'gr&sec': 'BSIT-3A', 'contact#': '09696412682' },
+    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg', 'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga', 'email': 'adrianmhakimacabali@gmail.com', 'gr&sec': 'BSIT-3A', 'contact#': '09696412682' },
+    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg', 'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga', 'email': 'adrianmhakimacabali@gmail.com', 'gr&sec': 'BSIT-3A', 'contact#': '09696412682' },
   ];
 
   void _showUsersModal(BuildContext context) {
