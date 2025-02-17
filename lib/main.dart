@@ -89,7 +89,7 @@ class MyAppState extends State<MyApp> {
           child: CircleAvatar(
             backgroundImage: AssetImage('assets/images/LuisAvatar.jpg'),
             radius: 15,
-          )
+          ),
         ),
         middle: Text('Chats'),
         trailing: CupertinoButton(
@@ -104,10 +104,19 @@ class MyAppState extends State<MyApp> {
       child: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(20.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: users.map((user) => _buildUserItem(user)).toList(),
-            ),
+          child: Column(
+            children: [
+              CupertinoSearchTextField(
+                placeholder: 'Search',
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: users.map((user) => _buildUserItem(user)).toList(),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
