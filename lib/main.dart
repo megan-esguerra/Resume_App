@@ -34,12 +34,12 @@ class MyAppState extends State<MyApp> {
       'contactNumber': '09696412682'
     },
     {
-      'name': 'Luis Gabrielle Estacio',
-      'avatar': 'assets/images/LuisAvatar.jpg',
-      'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga',
-      'email': 'adrianmhakimacabali@gmail.com',
+      'name': 'Kristel A. Culala',
+      'avatar': 'assets/images/KristelAvatar.png',
+      'address': '#106 P., Pescadores, Candaba, Pampanga',
+      'email': 'kristelariasculala@gmail.com',
       'gradeSection': 'BSIT-3A',
-      'contactNumber': '09696412682'
+      'contactNumber': '098604672231'
     },
     {
       'name': 'Luis Gabrielle Estacio',
@@ -268,6 +268,21 @@ class MyAppState extends State<MyApp> {
                     ),
 
                     // Added New Avatar Section Here
+                    SizedBox(width: 15),
+                    Column(
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: AssetImage('assets/images/KristelAvatar.png'),
+                          radius: 30,
+                        ),
+                        SizedBox(height: 5),
+                        Text(
+                          "Kristel",
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    // Added New Avatar Section
 
                     // Added New Avatar Section Here
 
