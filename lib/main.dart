@@ -16,21 +16,32 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   final List<Map<String, String>> users = [
-    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
-    {'name': 'Adrian Mhaki Macabali', 'avatar': 'assets/images/AdrianAvatar.jpg'},
-    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
-    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
-    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
-    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
-    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
-    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
+    {
+      'name': 'Luis Gabrielle Estacio',
+      'avatar': 'assets/images/LuisAvatar.jpg',
+      'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga',
+      'email': 'adrianmhakimacabali@gmail.com',
+      'gradeSection': 'BSIT-3A',
+      'contactNumber': '09696412682'
+    },
+    {
+      'name': 'Adrian Mhaki Macabali',
+      'avatar': 'assets/images/AdrianAvatar.jpg',
+      'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga',
+      'email': 'adrianmhakimacabali@gmail.com',
+      'gradeSection': 'BSIT-3A',
+      'contactNumber': '09696412682'
+    },
   ];
 
   void _showUsersModal(BuildContext context) {
     showCupertinoModalPopup(
       context: context,
       builder: (context) => CupertinoActionSheet(
-        title: Text("Teams", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        title: Text(
+          "Teams",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
         message: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
@@ -41,7 +52,10 @@ class MyAppState extends State<MyApp> {
         actions: [
           CupertinoActionSheetAction(
             onPressed: () => Navigator.pop(context),
-            child: Text("Close", style: TextStyle(color: CupertinoColors.destructiveRed)),
+            child: Text(
+              "Close",
+              style: TextStyle(color: CupertinoColors.destructiveRed),
+            ),
           ),
         ],
       ),
@@ -52,20 +66,48 @@ class MyAppState extends State<MyApp> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(50),
             child: Image.asset(
-              user['avatar']!,
+              user['avatar'] ?? 'assets/images/defaultAvatar.jpg',
               width: 80,
               height: 80,
               fit: BoxFit.cover,
             ),
           ),
           SizedBox(width: 15),
-          Text(
-            user['name']!,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  user['name'] ?? 'No Name',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                if (user.containsKey('address'))
+                  Text(
+                    user['address']!,
+                    style: TextStyle(fontSize: 14),
+                  ),
+                if (user.containsKey('email'))
+                  Text(
+                    user['email']!,
+                    style: TextStyle(fontSize: 14),
+                  ),
+                if (user.containsKey('gradeSection'))
+                  Text(
+                    user['gradeSection']!,
+                    style: TextStyle(fontSize: 14),
+                  ),
+                if (user.containsKey('contactNumber'))
+                  Text(
+                    user['contactNumber']!,
+                    style: TextStyle(fontSize: 14),
+                  ),
+              ],
+            ),
           ),
         ],
       ),
@@ -78,7 +120,7 @@ class MyAppState extends State<MyApp> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(25),
         child: Image.asset(
-          user['avatar']!,
+          user['avatar'] ?? 'assets/images/defaultAvatar.jpg',
           width: 50,
           height: 50,
           fit: BoxFit.cover,
