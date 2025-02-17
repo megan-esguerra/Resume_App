@@ -16,14 +16,14 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   final List<Map<String, String>> users = [
-    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg', 'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga', 'email': 'adrianmhakimacabali@gmail.com', 'gr&sec': 'BSIT-3A', 'contact#': '09696412682' },
-    {'name': 'Adrian Mhaki Macabali', 'avatar': 'assets/images/AdrianAvatar.jpg', 'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga', 'email': 'adrianmhakimacabali@gmail.com', 'gr&sec': 'BSIT-3A', 'contact#': '09696412682' },
-    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg', 'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga', 'email': 'adrianmhakimacabali@gmail.com', 'gr&sec': 'BSIT-3A', 'contact#': '09696412682' },
-    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg', 'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga', 'email': 'adrianmhakimacabali@gmail.com', 'gr&sec': 'BSIT-3A', 'contact#': '09696412682' },
-    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg', 'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga', 'email': 'adrianmhakimacabali@gmail.com', 'gr&sec': 'BSIT-3A', 'contact#': '09696412682' },
-    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg', 'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga', 'email': 'adrianmhakimacabali@gmail.com', 'gr&sec': 'BSIT-3A', 'contact#': '09696412682' },
-    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg', 'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga', 'email': 'adrianmhakimacabali@gmail.com', 'gr&sec': 'BSIT-3A', 'contact#': '09696412682' },
-    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg', 'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga', 'email': 'adrianmhakimacabali@gmail.com', 'gr&sec': 'BSIT-3A', 'contact#': '09696412682' },
+    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
+    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
+    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
+    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
+    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
+    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
+    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
+    {'name': 'Luis Gabrielle Estacio', 'avatar': 'assets/images/LuisAvatar.jpg'},
   ];
 
   void _showUsersModal(BuildContext context) {
@@ -52,54 +52,25 @@ class MyAppState extends State<MyApp> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(50),
             child: Image.asset(
-              user['avatar'] ?? 'assets/images/defaultAvatar.jpg', // Provide a default image
+              user['avatar']!,
               width: 80,
               height: 80,
               fit: BoxFit.cover,
             ),
           ),
           SizedBox(width: 15),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  user['name'] ?? 'No Name',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                if (user.containsKey('address'))
-                  Text(
-                    user['address']!,
-                    style: TextStyle(fontSize: 14),
-                  ),
-                if (user.containsKey('email'))
-                  Text(
-                    user['email']!,
-                    style: TextStyle(fontSize: 14),
-                  ),
-                if (user.containsKey('gr&sec'))
-                  Text(
-                    user['gr&sec']!,
-                    style: TextStyle(fontSize: 14),
-                  ),
-                if (user.containsKey('contact#'))
-                  Text(
-                    user['contact#']!,
-                    style: TextStyle(fontSize: 14),
-                  ),
-              ],
-            ),
+          Text(
+            user['name']!,
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ],
       ),
     );
   }
-
 
   Widget _buildUserAvatar(Map<String, String> user) {
     return Padding(
