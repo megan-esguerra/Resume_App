@@ -183,12 +183,19 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text('User List'),
+        leading: Padding(
+          padding: EdgeInsets.only(left: 10),
+          child: CircleAvatar(
+            backgroundImage: AssetImage('assets/images/LuisAvatar.jpg'),
+            radius: 15,
+          ),
+        ),
+        middle: Text('Chats'),
         trailing: CupertinoButton(
           padding: EdgeInsets.zero,
           child: Icon(
-            CupertinoIcons.person_2,
-            color: CupertinoColors.activeBlue,
+            CupertinoIcons.pencil,
+            color: CupertinoColors.white,
           ),
           onPressed: () => _showUsersModal(context),
         ),
@@ -217,20 +224,14 @@ class MyAppState extends State<MyApp> {
                             shape: BoxShape.circle,
                           ),
                           child: Center(
-                            child: Icon(CupertinoIcons.add,
-                                color: Colors.white, size: 30),
+                            child: Icon(CupertinoIcons.add, color: Colors.white, size: 30),
                           ),
                         ),
                         SizedBox(height: 5),
-                        Text(
-                          "Your Story",
-                          style: TextStyle(
-                              fontSize: 14, color: CupertinoColors.systemGrey),
-                        ),
+                        Text("Your Story", style: TextStyle(fontSize: 14, color: CupertinoColors.systemGrey)),
                       ],
                     ),
                     SizedBox(width: 20),
-
                     // Added New Avatar Section
                     Column(
                       children: [
