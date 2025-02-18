@@ -69,72 +69,53 @@ class MyAppState extends State<MyApp> {
         child: CupertinoActionSheet(
           message: Material(
             color: Colors.transparent,
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.9,
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: CupertinoColors.transparent,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "DevOps Teams",
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                double screenWidth = constraints.maxWidth;
+                double avatarSize = screenWidth < 400 ? 50 : 70;
+                double spacing = screenWidth < 400 ? 10 : 20;
+
+                return Container(
+                  width: screenWidth * 0.9,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                  SizedBox(height: 15),
-                  SizedBox(
-                    height: 200,
-                    child: Stack(
-                      children: [
-                        // Center Avatar
-                        Positioned(
-                          left: 20,
-                          top: 0,
-                          child: _buildUserAvatar(users[0]),
-                        ),
-                        // Top Avatar
-                        Positioned(
-                          left: 110,
-                          top: 0,
-                          child: _buildUserAvatar(users[1]),
-                        ),
-                        // Top Right Avatar
-                        Positioned(
-                          right: 20,
-                          top: 0,
-                          child: _buildUserAvatar(users[2]),
-                        ),
-                        // Bottom Right Avatar
-                        Positioned(
-                          right: 70,
-                          bottom: 30,
-                          child: _buildUserAvatar(users[3]),
-                        ),
-                        // Bottom Left Avatar
-                        Positioned(
-                          left: 70,
-                          bottom: 30,
-                          child: _buildUserAvatar(users[4]),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  CupertinoButton(
-                    child: Text("Close",
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "DevOps Teams",
                         style: TextStyle(
-                          color: CupertinoColors.destructiveRed,
-                        )),
-                    onPressed: () => Navigator.pop(context),
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(height: 15),
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: spacing,
+                        runSpacing: spacing,
+                        children: users
+                            .map((user) => _buildUserAvatarResponsive(user, avatarSize))
+                            .toList(),
+                      ),
+                      SizedBox(height: 15),
+                      CupertinoButton(
+                        child: Text(
+                          "Close",
+                          style: TextStyle(
+                            color: CupertinoColors.destructiveRed,
+                          ),
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                );
+              },
             ),
           ),
         ),
@@ -142,8 +123,91 @@ class MyAppState extends State<MyApp> {
     );
   }
 
+  Widget _buildUserAvatarResponsive(Map<String, String> user, double size) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        CircleAvatar(
+          radius: size / 2,
+          backgroundImage: AssetImage(user['avatar']!),
+        ),
+        SizedBox(height: 5),
+        Text(
+          user['name']!.split(' ')[0], // Display only the first name
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ],
+    );
+  }
 
 
+  //Your Story Modal
+  void _showStoryModal(String avatarPath, String name, String message) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+        title: Text(
+          name,
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        message: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: Image.asset(
+                avatarPath,
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover,
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              message,
+              style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+            ),
+          ],
+        ),
+        actions: [
+          CupertinoActionSheetAction(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              "Close",
+              style: TextStyle(color: CupertinoColors.destructiveRed),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  //Update Search
+  List<Map<String, String>> _filteredUsers = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _filteredUsers = users;
+  }
+  // Search Functionality
+  void _filterUsers(String query) {
+    List<Map<String, String>> results = [];
+    if (query.isEmpty) {
+      results = users;
+    } else {
+      results = users
+          .where((user) =>
+          user['name']!.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    }
+    setState(() {
+      _filteredUsers = results;
+    });
+  }
 
   //Added When CLick It will Popup the Information
   void _showUserDetailsModal(Map<String, String> user) {
@@ -227,73 +291,77 @@ class MyAppState extends State<MyApp> {
 
 
 
-  Widget _buildUserAvatar(Map<String, String> user) {
-    return Column(
-      children: [
-        CircleAvatar(
-          radius: 30,
-          backgroundImage: AssetImage(user['avatar']!),
-        ),
-        SizedBox(height: 5),
-        Text(
-          user['name']!.split(' ')[0], // Display only first name
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-      ],
-    );
-  }
+  // Widget _buildUserAvatar(Map<String, String> user) {
+  //   return Column(
+  //     children: [
+  //       CircleAvatar(
+  //         radius: 30,
+  //         backgroundImage: AssetImage(user['avatar']!),
+  //       ),
+  //       SizedBox(height: 5),
+  //       Text(
+  //         user['name']!.split(' ')[0], // Display only first name
+  //         style: TextStyle(
+  //           fontSize: 14,
+  //           fontWeight: FontWeight.bold,
+  //           color: Colors.white,
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
-  Widget _buildStoryAvatar(String avatarPath, String name, dynamic unreadMessages) {
-    return Column(
-      children: [
-        Stack(
-          clipBehavior: Clip.none,
-          children: [
-            CircleAvatar(
-              backgroundImage: AssetImage(avatarPath),
-              radius: 30,
-            ),
-            if (unreadMessages != null) // Show badge only if there's a value
-              Positioned(
-                left: -4,
-                top: -4,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[800], // Dark grey background
-                    borderRadius: BorderRadius.circular(15), // Rounded corners
-                  ),
-                  constraints: BoxConstraints(
-                    minWidth: 16,
-                    minHeight: 16,
-                  ),
-                  child: Center(
-                    child: Text(
-                      unreadMessages.toString(), // Convert int or String to text
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
+  Widget _buildStoryAvatar(String avatarPath, String name, String message) {
+    return GestureDetector(
+      onTap: () => _showStoryModal(avatarPath, name, message),
+      child: Column(
+        children: [
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              CircleAvatar(
+                backgroundImage: AssetImage(avatarPath),
+                radius: 30,
+              ),
+              if (message.isNotEmpty)
+                Positioned(
+                  left: -4,
+                  top: -4,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[800],
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    constraints: BoxConstraints(
+                      minWidth: 16,
+                      minHeight: 16,
+                    ),
+                    child: Center(
+                      child: Text(
+                        message,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
-              ),
-          ],
-        ),
-        SizedBox(height: 5),
-        Text(
-          name,
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-        ),
-      ],
+            ],
+          ),
+          SizedBox(height: 5),
+          Text(
+            name,
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
     );
   }
+
 
 
   @override
@@ -303,12 +371,12 @@ class MyAppState extends State<MyApp> {
       navigationBar: CupertinoNavigationBar(
         leading: CupertinoButton(
           padding: EdgeInsets.zero,
-          onPressed: () { // Modify this callback
-            _scaffoldKey.currentState?.openDrawer(); // Add this line
+          onPressed: () {
+            _scaffoldKey.currentState?.openDrawer();
           },
           child: Icon(
-              CupertinoIcons.bars,
-              color: CupertinoColors.white,
+            CupertinoIcons.bars,
+            color: CupertinoColors.white,
           ),
         ),
         middle: Text('Chats'),
@@ -321,7 +389,6 @@ class MyAppState extends State<MyApp> {
           onPressed: () => _showUsersModal(context),
         ),
       ),
-
       child: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -331,11 +398,13 @@ class MyAppState extends State<MyApp> {
                 // Search Bar
                 CupertinoSearchTextField(
                   placeholder: 'Search',
-                  backgroundColor: Colors.grey[800], // Change to dark grey
+                  backgroundColor: Colors.grey[800],
                   borderRadius: BorderRadius.circular(25),
-                  style: TextStyle(color: Colors.white), // Text color
-                  placeholderStyle: TextStyle(color: Colors.grey[400]), // Placeholder color
+                  style: TextStyle(color: Colors.white),
+                  placeholderStyle: TextStyle(color: Colors.grey[400]),
+                  onChanged: (query) => _filterUsers(query),
                 ),
+
 
                 SizedBox(height: 15),
 
@@ -376,11 +445,13 @@ class MyAppState extends State<MyApp> {
 
 
 
+
                 SizedBox(height: 15),
 
-                // User List
+                // User List (Filtered)
                 Column(
-                  children: users.map((user) => _buildUserItem(user)).toList(),
+                  children:
+                  _filteredUsers.map((user) => _buildUserItem(user)).toList(),
                 ),
               ],
             ),
