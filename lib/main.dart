@@ -51,12 +51,12 @@ class MyAppState extends State<MyApp> {
       'contactNumber': '09208738510'
     },
     {
-      'name': 'Luis Gabrielle Estacio',
-      'avatar': 'assets/images/LuisAvatar.jpg',
-      'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga',
-      'email': 'adrianmhakimacabali@gmail.com',
+      'name': 'Megan D. Esguerra',
+      'avatar': 'assets/images/MeganAvatar.jpg',
+      'address': '0066 Arenas,Arayat,Pampanga',
+      'email': '0906megan64@gmail.com',
       'gradeSection': 'BSIT-3A',
-      'contactNumber': '09696412682'
+      'contactNumber': '09360720522'
     },
     {
       'name': 'Luis Gabrielle Estacio',
@@ -309,6 +309,8 @@ class MyAppState extends State<MyApp> {
                     SizedBox(width: 15),
                     _buildStoryAvatar('assets/images/KristelAvatar.png', 'Kristel', 21),
                     // Added New Avatar Section
+                    SizedBox(width:20),
+                    _buildStoryAvatar('assets/images/MeganAvatar.jpg', 'Megan', 21),
                     // Added New Avatar Section Here
                     // Added New Avatar Section Here
 
