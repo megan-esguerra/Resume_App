@@ -97,8 +97,7 @@ class MyAppState extends State<MyApp> {
                   ),
                   SizedBox(height: 12),
                   CupertinoButton(
-                    color: CupertinoColors.destructiveRed,
-                    child: Text("Close"),
+                    child: Text("Close", style: TextStyle(color: CupertinoColors.destructiveRed)),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ],
@@ -283,49 +282,41 @@ class MyAppState extends State<MyApp> {
                 ),
                 SizedBox(height: 15),
 
-                Row(
-                  children: [
-                    Column(
-                      children: [
-                        Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[800],
-                            shape: BoxShape.circle,
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      Column(
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[800],
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Icon(CupertinoIcons.add, color: Colors.white, size: 30),
+                            ),
                           ),
-                          child: Center(
-                            child: Icon(CupertinoIcons.add, color: Colors.white, size: 30),
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Text("Your Story", style: TextStyle(fontSize: 14, color: CupertinoColors.systemGrey)),
-                      ],
-                    ),
-                    SizedBox(width: 20),
-                    // Added New Avatar Section
-                    _buildStoryAvatar('assets/images/AdrianAvatar.jpg', 'Adrian', 100),
-                    SizedBox(width: 20),
-                    // Added New Avatar Section
-                    _buildStoryAvatar('assets/images/LuisAvatar.jpg', 'Luis', 12),
-                    // Added New Avatar Section Here
-                    SizedBox(width: 15),
-                    _buildStoryAvatar('assets/images/KristelAvatar.png', 'Kristel', 21),
-                    // Added New Avatar Section
-                    SizedBox(width:20),
-                    _buildStoryAvatar('assets/images/MeganAvatar.jpg', 'Megan', 21),
-                    // Added New Avatar Section Here
-                    SizedBox(width: 20,),
-                    _buildStoryAvatar('assets/images/JohnnIvanAvatar.jpg', 'John Ivan', 21),
-                    // Added New Avatar Section Here
-
-                    // Added New Avatar Section
-
-                    // Added New Avatar Section Here
-
-                    // Added New Avatar Section Here
-                  ],
+                          SizedBox(height: 5),
+                          Text("Your Story", style: TextStyle(fontSize: 14, color: CupertinoColors.systemGrey)),
+                        ],
+                      ),
+                      SizedBox(width: 20),
+                      _buildStoryAvatar('assets/images/AdrianAvatar.jpg', 'Adrian', 100),
+                      SizedBox(width: 20),
+                      _buildStoryAvatar('assets/images/LuisAvatar.jpg', 'Luis', 12),
+                      SizedBox(width: 15),
+                      _buildStoryAvatar('assets/images/KristelAvatar.png', 'Kristel', 21),
+                      SizedBox(width: 20),
+                      _buildStoryAvatar('assets/images/MeganAvatar.jpg', 'Megan', 21),
+                      SizedBox(width: 20),
+                      _buildStoryAvatar('assets/images/JohnnIvanAvatar.jpg', 'John Ivan', 21),
+                    ],
+                  ),
                 ),
+
 
 
                 SizedBox(height: 15),
