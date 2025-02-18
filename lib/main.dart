@@ -16,6 +16,7 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final List<Map<String, String>> users = [
     {
       'name': 'Luis Gabrielle Estacio',
@@ -58,60 +59,58 @@ class MyAppState extends State<MyApp> {
       'gradeSection': 'BSIT-3A',
       'contactNumber': '09696412682'
     },
-    {
-      'name': 'Luis Gabrielle Estacio',
-      'avatar': 'assets/images/LuisAvatar.jpg',
-      'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga',
-      'email': 'adrianmhakimacabali@gmail.com',
-      'gradeSection': 'BSIT-3A',
-      'contactNumber': '09696412682'
-    },
-    {
-      'name': 'Luis Gabrielle Estacio',
-      'avatar': 'assets/images/LuisAvatar.jpg',
-      'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga',
-      'email': 'adrianmhakimacabali@gmail.com',
-      'gradeSection': 'BSIT-3A',
-      'contactNumber': '09696412682'
-    },
-    {
-      'name': 'Luis Gabrielle Estacio',
-      'avatar': 'assets/images/LuisAvatar.jpg',
-      'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga',
-      'email': 'adrianmhakimacabali@gmail.com',
-      'gradeSection': 'BSIT-3A',
-      'contactNumber': '09696412682'
-    },
+
   ];
 
   void _showUsersModal(BuildContext context) {
     showCupertinoModalPopup(
       context: context,
-      builder: (context) =>
-          CupertinoActionSheet(
-            title: Text(
-              "Teams",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            message: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: users.map((user) => _buildUserAvatar(user)).toList(),
+      builder: (context) => Center(
+        child: CupertinoActionSheet(
+          message: Material(
+            color: Colors.transparent,
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.9,
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: CupertinoColors.transparent, // Set background color here
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "DevOps Teams",
+                    style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 20),
+                  SizedBox(
+                    height: 100,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: users.length,
+                      itemBuilder: (context, index) => Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: _buildUserAvatar(users[index]),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 12),
+                  CupertinoButton(
+                    color: CupertinoColors.destructiveRed,
+                    child: Text("Close"),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
               ),
             ),
-            actions: [
-              CupertinoActionSheetAction(
-                onPressed: () => Navigator.pop(context),
-                child: Text(
-                  "Close",
-                  style: TextStyle(color: CupertinoColors.destructiveRed),
-                ),
-              ),
-            ],
           ),
+        ),
+      ),
     );
   }
+
+
 
   //Added When CLick It will Popup the Information
   void _showUserDetailsModal(Map<String, String> user) {
@@ -194,8 +193,8 @@ class MyAppState extends State<MyApp> {
         borderRadius: BorderRadius.circular(25),
         child: Image.asset(
           user['avatar'] ?? 'assets/images/defaultAvatar.jpg',
-          width: 50,
-          height: 50,
+          width: 100,
+          height: 200,
           fit: BoxFit.cover,
         ),
       ),
@@ -251,11 +250,14 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
+      key: _scaffoldKey,
       navigationBar: CupertinoNavigationBar(
         leading: CupertinoButton(
           padding: EdgeInsets.zero,
           child: Icon(CupertinoIcons.bars),
-          onPressed: () {},
+          onPressed: () { // Modify this callback
+            _scaffoldKey.currentState?.openDrawer(); // Add this line
+          },
         ),
         middle: Text('Chats'),
         trailing: CupertinoButton(
@@ -267,6 +269,7 @@ class MyAppState extends State<MyApp> {
           onPressed: () => _showUsersModal(context),
         ),
       ),
+
       child: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
