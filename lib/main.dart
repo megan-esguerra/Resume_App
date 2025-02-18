@@ -113,57 +113,79 @@ class MyAppState extends State<MyApp> {
     );
   }
 
-  Widget _buildUserItem(Map<String, String> user) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: Image.asset(
-              user['avatar'] ?? 'assets/images/defaultAvatar.jpg',
-              width: 80,
-              height: 80,
-              fit: BoxFit.cover,
+  //Added When CLick It will Popup the Information
+  void _showUserDetailsModal(Map<String, String> user) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+        title: Text(
+          user['name'] ?? 'No Name',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        message: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: Image.asset(
+                user['avatar'] ?? 'assets/images/defaultAvatar.jpg',
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          SizedBox(width: 15),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  user['name'] ?? 'No Name',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                if (user.containsKey('address'))
-                  Text(
-                    user['address']!,
-                    style: TextStyle(fontSize: 14),
-                  ),
-                if (user.containsKey('email'))
-                  Text(
-                    user['email']!,
-                    style: TextStyle(fontSize: 14),
-                  ),
-                if (user.containsKey('gradeSection'))
-                  Text(
-                    user['gradeSection']!,
-                    style: TextStyle(fontSize: 14),
-                  ),
-                if (user.containsKey('contactNumber'))
-                  Text(
-                    user['contactNumber']!,
-                    style: TextStyle(fontSize: 14),
-                  ),
-              ],
-            ),
+            SizedBox(height: 10),
+            Text('Address: ${user['address'] ?? 'N/A'}'),
+            Text('Email: ${user['email'] ?? 'N/A'}'),
+            Text('Grade/Section: ${user['gradeSection'] ?? 'N/A'}'),
+            Text('Contact: ${user['contactNumber'] ?? 'N/A'}'),
+          ],
+        ),
+        actions: [
+          CupertinoActionSheetAction(
+            onPressed: () => Navigator.pop(context),
+            child: Text("Close", style: TextStyle(color: CupertinoColors.destructiveRed)),
           ),
         ],
       ),
     );
   }
+
+
+  //Added Modal
+  Widget _buildUserItem(Map<String, String> user) {
+    return GestureDetector(
+      onTap: () => _showUserDetailsModal(user),  // Trigger modal on tap
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 10),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center, // Center vertically
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: Image.asset(
+                user['avatar'] ?? 'assets/images/defaultAvatar.jpg',
+                width: 80,
+                height: 80,
+                fit: BoxFit.cover,
+              ),
+            ),
+            SizedBox(width: 15),
+            Expanded(
+              child: Align(
+                alignment: Alignment.centerLeft, // Align text to the left
+                child: Text(
+                  user['name'] ?? 'No Name',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+
 
   Widget _buildUserAvatar(Map<String, String> user) {
     return Padding(
@@ -279,7 +301,7 @@ class MyAppState extends State<MyApp> {
                     ),
                     SizedBox(width: 20),
                     // Added New Avatar Section
-                    _buildStoryAvatar('assets/images/AdrianAvatar.jpg', 'Adrian', 3),
+                    _buildStoryAvatar('assets/images/AdrianAvatar.jpg', 'Adrian', 100),
                     SizedBox(width: 20),
                     // Added New Avatar Section
                     _buildStoryAvatar('assets/images/LuisAvatar.jpg', 'Luis', 12),
