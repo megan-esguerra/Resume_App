@@ -43,12 +43,12 @@ class MyAppState extends State<MyApp> {
       'contactNumber': '098604672231'
     },
     {
-      'name': 'Luis Gabrielle Estacio',
-      'avatar': 'assets/images/LuisAvatar.jpg',
-      'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga',
-      'email': 'adrianmhakimacabali@gmail.com',
+      'name': 'John Ivan C. Baligod',
+      'avatar': 'assets/images/JohnnIvanAvatar.jpg',
+      'address': '15-C Sapang Putot Sta Maria Sta Ana Pampanga',
+      'email': 'johnivanbaligod30@gmail.com',
       'gradeSection': 'BSIT-3A',
-      'contactNumber': '09696412682'
+      'contactNumber': '09208738510'
     },
     {
       'name': 'Luis Gabrielle Estacio',
