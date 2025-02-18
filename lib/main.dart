@@ -45,7 +45,7 @@ class MyAppState extends State<MyApp> {
     {
       'name': 'John Ivan C. Baligod',
       'avatar': 'assets/images/JohnnIvanAvatar.jpg',
-      'address': '15-C Sapang Putot Sta Maria Sta Ana Pampanga',
+      'address': '15-C Sapang Putot Sta Maria Sta Ana Pampanga.',
       'email': 'johnivanbaligod30@gmail.com',
       'gradeSection': 'BSIT-3A',
       'contactNumber': '09208738510'
