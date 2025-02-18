@@ -312,6 +312,8 @@ class MyAppState extends State<MyApp> {
                     SizedBox(width:20),
                     _buildStoryAvatar('assets/images/MeganAvatar.jpg', 'Megan', 21),
                     // Added New Avatar Section Here
+                    SizedBox(width: 20,),
+                    _buildStoryAvatar('assets/images/JohnnIvanAvatar.jpg', 'John Ivan', 21),
                     // Added New Avatar Section Here
 
                     // Added New Avatar Section
