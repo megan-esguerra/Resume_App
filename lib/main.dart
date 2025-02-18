@@ -73,7 +73,7 @@ class MyAppState extends State<MyApp> {
               width: MediaQuery.of(context).size.width * 0.9,
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: CupertinoColors.transparent, // Set background color here
+                color: CupertinoColors.transparent,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Column(
@@ -81,23 +81,56 @@ class MyAppState extends State<MyApp> {
                 children: [
                   Text(
                     "DevOps Teams",
-                    style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 20),
-                  SizedBox(
-                    height: 100,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: users.length,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: _buildUserAvatar(users[index]),
-                      ),
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: 12),
+                  SizedBox(height: 15),
+                  SizedBox(
+                    height: 200,
+                    child: Stack(
+                      children: [
+                        // Center Avatar
+                        Positioned(
+                          left: 20,
+                          top: 0,
+                          child: _buildUserAvatar(users[0]),
+                        ),
+                        // Top Avatar
+                        Positioned(
+                          left: 110,
+                          top: 0,
+                          child: _buildUserAvatar(users[1]),
+                        ),
+                        // Top Right Avatar
+                        Positioned(
+                          right: 20,
+                          top: 0,
+                          child: _buildUserAvatar(users[2]),
+                        ),
+                        // Bottom Right Avatar
+                        Positioned(
+                          right: 70,
+                          bottom: 30,
+                          child: _buildUserAvatar(users[3]),
+                        ),
+                        // Bottom Left Avatar
+                        Positioned(
+                          left: 70,
+                          bottom: 30,
+                          child: _buildUserAvatar(users[4]),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 5),
                   CupertinoButton(
-                    child: Text("Close", style: TextStyle(color: CupertinoColors.destructiveRed)),
+                    child: Text("Close",
+                        style: TextStyle(
+                          color: CupertinoColors.destructiveRed,
+                        )),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ],
@@ -108,6 +141,7 @@ class MyAppState extends State<MyApp> {
       ),
     );
   }
+
 
 
 
@@ -169,14 +203,22 @@ class MyAppState extends State<MyApp> {
             ),
             SizedBox(width: 15),
             Expanded(
-              child: Align(
-                alignment: Alignment.centerLeft, // Align text to the left
-                child: Text(
-                  user['name'] ?? 'No Name',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start, // Aligns text to the left
+                children: [
+                  Text(
+                    user['name'] ?? 'No Name',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 5), // Space between name and email
+                  Text(
+                    'Email: ${user['email'] ?? 'N/A'}',
+                    style: TextStyle(color: Colors.grey, fontSize: 12),
+                  ),
+                ],
               ),
             ),
+
           ],
         ),
       ),
@@ -186,20 +228,26 @@ class MyAppState extends State<MyApp> {
 
 
   Widget _buildUserAvatar(Map<String, String> user) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(25),
-        child: Image.asset(
-          user['avatar'] ?? 'assets/images/defaultAvatar.jpg',
-          width: 100,
-          height: 200,
-          fit: BoxFit.cover,
+    return Column(
+      children: [
+        CircleAvatar(
+          radius: 30,
+          backgroundImage: AssetImage(user['avatar']!),
         ),
-      ),
+        SizedBox(height: 5),
+        Text(
+          user['name']!.split(' ')[0], // Display only first name
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ],
     );
   }
-  Widget _buildStoryAvatar(String avatarPath, String name, int unreadMessages) {
+
+  Widget _buildStoryAvatar(String avatarPath, String name, dynamic unreadMessages) {
     return Column(
       children: [
         Stack(
@@ -209,16 +257,15 @@ class MyAppState extends State<MyApp> {
               backgroundImage: AssetImage(avatarPath),
               radius: 30,
             ),
-            if (unreadMessages > 0) // Show badge only if there are unread messages
+            if (unreadMessages != null) // Show badge only if there's a value
               Positioned(
-                right: -2,
-                top: -2,
+                left: -4,
+                top: -4,
                 child: Container(
-                  padding: EdgeInsets.all(4),
+                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                   decoration: BoxDecoration(
-                    color: Colors.black54,
-                    shape: BoxShape.rectangle,
-
+                    color: Colors.grey[800], // Dark grey background
+                    borderRadius: BorderRadius.circular(15), // Rounded corners
                   ),
                   constraints: BoxConstraints(
                     minWidth: 16,
@@ -226,10 +273,11 @@ class MyAppState extends State<MyApp> {
                   ),
                   child: Center(
                     child: Text(
-                      unreadMessages > 9 ? '9+' : unreadMessages.toString(),
+                      unreadMessages.toString(), // Convert int or String to text
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 10,
+                        fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -246,6 +294,8 @@ class MyAppState extends State<MyApp> {
       ],
     );
   }
+
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -253,10 +303,13 @@ class MyAppState extends State<MyApp> {
       navigationBar: CupertinoNavigationBar(
         leading: CupertinoButton(
           padding: EdgeInsets.zero,
-          child: Icon(CupertinoIcons.bars),
           onPressed: () { // Modify this callback
             _scaffoldKey.currentState?.openDrawer(); // Add this line
           },
+          child: Icon(
+              CupertinoIcons.bars,
+              color: CupertinoColors.white,
+          ),
         ),
         middle: Text('Chats'),
         trailing: CupertinoButton(
@@ -278,8 +331,12 @@ class MyAppState extends State<MyApp> {
                 // Search Bar
                 CupertinoSearchTextField(
                   placeholder: 'Search',
+                  backgroundColor: Colors.grey[800], // Change to dark grey
                   borderRadius: BorderRadius.circular(25),
+                  style: TextStyle(color: Colors.white), // Text color
+                  placeholderStyle: TextStyle(color: Colors.grey[400]), // Placeholder color
                 ),
+
                 SizedBox(height: 15),
 
                 SingleChildScrollView(
@@ -299,20 +356,20 @@ class MyAppState extends State<MyApp> {
                               child: Icon(CupertinoIcons.add, color: Colors.white, size: 30),
                             ),
                           ),
-                          SizedBox(height: 5),
+                          SizedBox(height: 20),
                           Text("Your Story", style: TextStyle(fontSize: 14, color: CupertinoColors.systemGrey)),
                         ],
                       ),
                       SizedBox(width: 20),
-                      _buildStoryAvatar('assets/images/AdrianAvatar.jpg', 'Adrian', 100),
+                      _buildStoryAvatar('assets/images/AdrianAvatar.jpg', 'Adrian', 'kiss 😽'),
                       SizedBox(width: 20),
-                      _buildStoryAvatar('assets/images/LuisAvatar.jpg', 'Luis', 12),
+                      _buildStoryAvatar('assets/images/LuisAvatar.jpg', 'Luis', 'Sheesh~~'),
                       SizedBox(width: 15),
-                      _buildStoryAvatar('assets/images/KristelAvatar.png', 'Kristel', 21),
+                      _buildStoryAvatar('assets/images/KristelAvatar.png', 'Kristel', '😵‍💫'),
                       SizedBox(width: 20),
-                      _buildStoryAvatar('assets/images/MeganAvatar.jpg', 'Megan', 21),
+                      _buildStoryAvatar('assets/images/MeganAvatar.jpg', 'Megan', '~~~'),
                       SizedBox(width: 20),
-                      _buildStoryAvatar('assets/images/JohnnIvanAvatar.jpg', 'John Ivan', 21),
+                      _buildStoryAvatar('assets/images/JohnnIvanAvatar.jpg', 'John Ivan', "🍵"),
                     ],
                   ),
                 ),
