@@ -20,10 +20,11 @@ class MyAppState extends State<MyApp> {
     {
       'name': 'Luis Gabrielle Estacio',
       'avatar': 'assets/images/LuisAvatar.jpg',
-      'address': '#564 Sitio SUmppung, San Patricio, Mexico, Pamppanga',
-      'email': 'adrianmhakimacabali@gmail.com',
+      'address': '#000 Purok 2 P gulut San Nicolas Sta Ana Pampanga',
+      'email': 'estacio.gabrielle31@gmail.com',
+      'lastMessage': 'Hello!',
       'gradeSection': 'BSIT-3A',
-      'contactNumber': '09696412682'
+      'contactNumber': '096865764654'
     },
     {
       'name': 'Adrian Mhaki Macabali',
@@ -178,17 +179,61 @@ class MyAppState extends State<MyApp> {
       ),
     );
   }
+  Widget _buildStoryAvatar(String avatarPath, String name, int unreadMessages) {
+    return Column(
+      children: [
+        Stack(
+          clipBehavior: Clip.none,
+          children: [
+            CircleAvatar(
+              backgroundImage: AssetImage(avatarPath),
+              radius: 30,
+            ),
+            if (unreadMessages > 0) // Show badge only if there are unread messages
+              Positioned(
+                right: -2,
+                top: -2,
+                child: Container(
+                  padding: EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    color: Colors.black54,
+                    shape: BoxShape.rectangle,
 
+                  ),
+                  constraints: BoxConstraints(
+                    minWidth: 16,
+                    minHeight: 16,
+                  ),
+                  child: Center(
+                    child: Text(
+                      unreadMessages > 9 ? '9+' : unreadMessages.toString(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
+        SizedBox(height: 5),
+        Text(
+          name,
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        ),
+      ],
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        leading: Padding(
-          padding: EdgeInsets.only(left: 10),
-          child: CircleAvatar(
-            backgroundImage: AssetImage('assets/images/LuisAvatar.jpg'),
-            radius: 15,
-          ),
+        leading: CupertinoButton(
+          padding: EdgeInsets.zero,
+          child: Icon(CupertinoIcons.bars),
+          onPressed: () {},
         ),
         middle: Text('Chats'),
         trailing: CupertinoButton(
@@ -209,6 +254,7 @@ class MyAppState extends State<MyApp> {
                 // Search Bar
                 CupertinoSearchTextField(
                   placeholder: 'Search',
+                  borderRadius: BorderRadius.circular(25),
                 ),
                 SizedBox(height: 15),
 
@@ -233,55 +279,17 @@ class MyAppState extends State<MyApp> {
                     ),
                     SizedBox(width: 20),
                     // Added New Avatar Section
-                    Column(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage:
-                          AssetImage('assets/images/AdrianAvatar.jpg'),
-                          radius: 30,
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          "Adrian",
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
+                    _buildStoryAvatar('assets/images/AdrianAvatar.jpg', 'Adrian', 3),
                     SizedBox(width: 20),
-
                     // Added New Avatar Section
-                    Column(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage:
-                          AssetImage('assets/images/LuisAvatar.jpg'),
-                          radius: 30,
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          "Luis",
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-
+                    _buildStoryAvatar('assets/images/LuisAvatar.jpg', 'Luis', 12),
                     // Added New Avatar Section Here
                     SizedBox(width: 15),
-                    Column(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: AssetImage('assets/images/KristelAvatar.png'),
-                          radius: 30,
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          "Kristel",
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
+                    _buildStoryAvatar('assets/images/KristelAvatar.png', 'Kristel', 21),
+                    // Added New Avatar Section
+                    // Added New Avatar Section Here
+                    // Added New Avatar Section Here
+
                     // Added New Avatar Section
 
                     // Added New Avatar Section Here
