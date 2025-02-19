@@ -60,6 +60,7 @@ class MyAppState extends State<MyApp> {
       'contactNumber': '09360720522'
     },
 
+
   ];
 
   void _showUsersModal(BuildContext context) {
@@ -379,7 +380,7 @@ class MyAppState extends State<MyApp> {
             color: CupertinoColors.white,
           ),
         ),
-        middle: Text('Chats'),
+        middle: Text('Resume'),
         trailing: CupertinoButton(
           padding: EdgeInsets.zero,
           child: Icon(
@@ -432,11 +433,11 @@ class MyAppState extends State<MyApp> {
                       SizedBox(width: 20),
                       _buildStoryAvatar('assets/images/AdrianAvatar.jpg', 'Adrian', 'kiss 😽'),
                       SizedBox(width: 20),
-                      _buildStoryAvatar('assets/images/LuisAvatar.jpg', 'Luis', 'Sheesh~~'),
+                      _buildStoryAvatar('assets/images/LuisAvatar.jpg', 'Luis', 'Sheesh~~💩'),
                       SizedBox(width: 15),
                       _buildStoryAvatar('assets/images/KristelAvatar.png', 'Kristel', '😵‍💫'),
                       SizedBox(width: 20),
-                      _buildStoryAvatar('assets/images/MeganAvatar.jpg', 'Megan', '~~~'),
+                      _buildStoryAvatar('assets/images/MeganAvatar.jpg', 'Megan', '💻'),
                       SizedBox(width: 20),
                       _buildStoryAvatar('assets/images/JohnnIvanAvatar.jpg', 'John Ivan', "🍵"),
                     ],
