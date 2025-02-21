@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'login.dart';
+
 
 void main() {
   runApp(CupertinoApp(
@@ -62,6 +64,39 @@ class MyAppState extends State<MyApp> {
 
 
   ];
+
+  void _showDrawerMenu(BuildContext context) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+        title: Text(
+          "Menu",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          CupertinoActionSheetAction(
+            onPressed: () {
+              Navigator.pop(context); // Close menu
+              _logout(); // Call the logout function
+            },
+            child: Text("Logout", style: TextStyle(color: CupertinoColors.destructiveRed)),
+          ),
+        ],
+        cancelButton: CupertinoActionSheetAction(
+          onPressed: () => Navigator.pop(context),
+          child: Text("Cancel"),
+        ),
+      ),
+    );
+  }
+
+  // Logout Function
+  void _logout() {
+    Navigator.pushReplacement(
+      context,
+      CupertinoPageRoute(builder: (context) => LoginPage()), // Navigate back to login
+    );
+  }
 
   void _showUsersModal(BuildContext context) {
     showCupertinoModalPopup(
@@ -373,7 +408,7 @@ class MyAppState extends State<MyApp> {
         leading: CupertinoButton(
           padding: EdgeInsets.zero,
           onPressed: () {
-            _scaffoldKey.currentState?.openDrawer();
+            _showDrawerMenu(context); // Show the menu when tapped
           },
           child: Icon(
             CupertinoIcons.bars,
